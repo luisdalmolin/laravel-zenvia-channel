@@ -17,15 +17,19 @@ class Zenvia
     /** @var null|string senha do zenvia. */
     protected $senha = null;
 
+    /** @var null|string from do zenvia. */
+    protected $from = null;
+
     /**
-     * @param null            $token
-     * @param HttpClient|null $httpClient
+     * @param null $conta
+     * @param null $senha
+     * @param null $from
      */
-    public function __construct($conta = null, $senha = null, HttpClient $httpClient = null)
+    public function __construct($conta = null, $senha = null, $from = null)
     {
         $this->conta = $conta;
         $this->senha = $senha;
-        $this->http  = $httpClient;
+        $this->from  = $from;
     }
 
     /**
@@ -35,14 +39,14 @@ class Zenvia
      */
     protected function httpClient()
     {
-        return $this->http ?: $this->http = new HttpClient([
+        return new HttpClient([
             'base_uri' => 'https://api-rest.zenvia360.com.br',
             'headers' => [
                 'Content-Type'  => 'application/json',
                 'Accept'        => 'application/json',
                 'Authorization' => 'Basic ' . base64_encode(config('services.zenvia.conta') . ':' . config('services.zenvia.senha'))
             ]
-        );
+        ]);
     }
 
     /**
@@ -61,10 +65,10 @@ class Zenvia
         try {
             data = [
                 'sendSmsRequest' => [
-                    'from' => $params['from'],
-                    'to'   => $params['to'],
-                    'msg'  => $params['msg'],
-                    'id'   => $params['id'],
+                    'from' => $this->from,
+                    'to'   => $this->to,
+                    'msg'  => $this->msg,
+                    'id'   => $this->id,
                 ],
             ];
 

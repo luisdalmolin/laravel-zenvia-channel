@@ -16,7 +16,11 @@ class ZenviaServiceProvider extends ServiceProvider
             ->give(function () {
                 $config = config('services.zenvia');
 
-                return new Zenvia($config['conta'], $config['senha'])
+                return new Zenvia(
+                    $config['conta'],
+                    $config['senha'],
+                    $config['from']
+                );
             });
     }
 

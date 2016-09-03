@@ -30,11 +30,19 @@ class ZenviaMessage
     public function msg($msg)
     {
         $this->msg = $msg;
+        return $this;
+    }
+
+    public function content($content)
+    {
+        $this->msg($content);
+        return $this;
     }
 
     public function id($id)
     {
         $this->id = $id;
+        return $this;
     }
 
     public function toArray()

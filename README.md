@@ -2,22 +2,15 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/laravel-notification-channels/zenvia.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/zenvia)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/laravel-notification-channels/telegram/master.svg?style=flat-square)](https://travis-ci.org/laravel-notification-channels/telegram)
-[![StyleCI](https://styleci.io/repos/65490735/shield)](https://styleci.io/repos/65490735)
-[![SensioLabsInsight](https://img.shields.io/sensiolabs/i/d28e31ec-55ce-4306-88a3-84d5d14ad3db.svg?style=flat-square)](https://insight.sensiolabs.com/projects/d28e31ec-55ce-4306-88a3-84d5d14ad3db)
-[![Quality Score](https://img.shields.io/scrutinizer/g/laravel-notification-channels/telegram.svg?style=flat-square)](https://scrutinizer-ci.com/g/laravel-notification-channels/telegram)
-[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/laravel-notification-channels/telegram/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/laravel-notification-channels/telegram/?branch=master)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel-notification-channels/zenvia.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/telegram)
 
-This package makes it easy to send Zenvia SMS messages using [Zenvia API](https://core.telegram.org/bots) with Laravel 5.3.
+This package makes it easy to send Zenvia SMS messages using [Zenvia API](http://docs.zenviasms.apiary.io) with Laravel 5.3.
 
 ## Contents
 
 - [Installation](#installation)
-    - [Setting up your Telegram bot](#setting-up-your-telegram-bot)
+- [Configuration](#configuration)
 - [Usage](#usage)
     - [Available Message methods](#available-message-methods)
-- [Alternatives](#alternatives)
 - [Changelog](#changelog)
 - [Testing](#testing)
 - [Security](#security)
@@ -30,7 +23,7 @@ This package makes it easy to send Zenvia SMS messages using [Zenvia API](https:
 You can install the package via composer:
 
 ``` bash
-composer require laravel-notification-channels/telegram
+composer require laravel-notification-channels/zenvia
 ```
 
 You must install the service provider:
@@ -39,21 +32,21 @@ You must install the service provider:
 // config/app.php
 'providers' => [
     ...
-    NotificationChannels\Telegram\TelegramServiceProvider::class,
+    NotificationChannels\Zenvia\ZenviaServiceProvider::class,
 ],
 ```
 
-## Setting up your Telegram Bot
+## Configuration
 
-Talk to [@BotFather](https://core.telegram.org/bots#6-botfather) and generate a Bot API Token.
-
-Then, configure your Telegram Bot API Token:
+Configure your credentials: 
 
 ```php
 // config/services.php
 ...
-'telegram-bot-api' => [
-    'token' => env('TELEGRAM_BOT_TOKEN', 'YOUR BOT TOKEN HERE')
+'zenvia' => [
+    'from'  => env('ZENVIA_FROM', 'Laravel Notification Channels'),
+    'conta' => env('ZENVIA_CONTA', 'YOUR ACCOUNT'),
+    'senha' => env('ZENVIA_SENHA', 'YOUR PASSWORD')
 ],
 ...
 ```
@@ -63,32 +56,27 @@ Then, configure your Telegram Bot API Token:
 You can now use the channel in your `via()` method inside the Notification class.
 
 ``` php
-use NotificationChannels\Telegram\TelegramChannel;
-use NotificationChannels\Telegram\TelegramMessage;
+use NotificationChannels\Telegram\ZenviaChannel;
+use NotificationChannels\Telegram\ZenviaMessage;
 use Illuminate\Notifications\Notification;
 
 class InvoicePaid extends Notification
 {
     public function via($notifiable)
     {
-        return [TelegramChannel::class];
+        return [ZenviaChannel::class];
     }
 
-    public function toTelegram($notifiable)
+    public function toZenvia($notifiable)
     {
-        $url = url('/invoice/' . $this->invoice->id);
-
-        return TelegramMessage::create()
-            ->to($this->user->telegram_user_id) // Optional.
-            ->content("*HELLO!* \n One of your invoices has been paid!") // Markdown supported.
-            ->button('View Invoice', $url); // Inline Button
+        return ZenviaMessage::create()
+            ->from('Laravel') // optional
+            ->to($notifiable->phone) // your user phone
+            ->content('Your invoice has been paid')
+            ->id('your-sms-id');
     }
 }
 ```
-
-Here's a screenshot preview of the above notification on Telegram Messenger:
-
-![Laravel Telegram Notification Example](https://cloud.githubusercontent.com/assets/1915268/17590374/2e05e872-5ff7-11e6-992f-63d5f3df2db3.png)
 
 ### Routing a message
 
@@ -110,15 +98,10 @@ public function routeNotificationForTelegram()
 
 ### Available Message methods
 
-- `to($chatId)`: (integer) Recipient's chat id.
-- `content('')`: (string) Notification message, supports markdown. For more information on supported markdown styles, check out these [docs](https://telegram-bot-sdk.readme.io/docs/sendmessage#section-markdown-style).
-- `button($text, $url)`: (string) Adds an inline "Call to Action" button. You can add as many as you want and they'll be placed 2 in a row.
-- `options([])`: (array) Allows you to add additional or override `sendMessage` payload (A Telegram Bot API method used to send message internally). For more information on supported parameters, check out these [docs](https://telegram-bot-sdk.readme.io/docs/sendmessage).
-
-## Alternatives
-
-For advance usage, please consider using [telegram-bot-sdk](https://github.com/irazasyed/telegram-bot-sdk) instead.
-
+- `to($phone)`: (integer) Recipient's phone.
+- `content('message')`: (string) SMS message.
+- `from('Sender')`: (string) Sender's name.
+- `id('sms-id')`: (string) SMS ID.
 
 ## Changelog
 
@@ -132,7 +115,7 @@ $ composer test
 
 ## Security
 
-If you discover any security related issues, please email syed@lukonet.com instead of using the issue tracker.
+If you discover any security related issues, please email luis.nh@gmail.com instead of using the issue tracker.
 
 ## Contributing
 
@@ -140,7 +123,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Credits
 
-- [Syed Irfaq R.](https://github.com/irazasyed)
+- [Luís Dalmolin](https://github.com/luisdalmolin)
 - [All Contributors](../../contributors)
 
 ## License
