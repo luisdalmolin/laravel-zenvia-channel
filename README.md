@@ -56,8 +56,8 @@ Configure your credentials:
 You can now use the channel in your `via()` method inside the Notification class.
 
 ``` php
-use NotificationChannels\Telegram\ZenviaChannel;
-use NotificationChannels\Telegram\ZenviaMessage;
+use NotificationChannels\Zenvia\ZenviaChannel;
+use NotificationChannels\Zenvia\ZenviaMessage;
 use Illuminate\Notifications\Notification;
 
 class InvoicePaid extends Notification
@@ -80,18 +80,18 @@ class InvoicePaid extends Notification
 
 ### Routing a message
 
-You can either send the notification by providing with the chat id of the recipient to the `to($chatId)` method like shown in the above example or add a `routeNotificationForTelegram()` method in your notifiable model:
+You can either send the notification by providing with the chat id of the recipient to the to($chatId) method like shown in the above example or add a routeNotificationForTelegram() method in your notifiable model:
 
-``` php
+```php
 ...
 /**
  * Route notifications for the Telegram channel.
  *
  * @return int
  */
-public function routeNotificationForTelegram()
+public function routeNotificationForZenvia()
 {
-    return $this->telegram_user_id;
+    return $this->phone;
 }
 ...
 ```

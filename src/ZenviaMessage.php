@@ -6,10 +6,10 @@ use Illuminate\Support\Arr;
 
 class ZenviaMessage
 {
-    protected $from;
-    protected $to;
-    protected $msg;
-    protected $id;
+    public $from;
+    public $to;
+    public $msg;
+    public $id;
 
     public static function create($msg = null)
     {

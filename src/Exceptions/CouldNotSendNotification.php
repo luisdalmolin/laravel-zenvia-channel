@@ -1,6 +1,6 @@
 <?php
 
-namespace NotificationChannels\Telegram\Exceptions;
+namespace NotificationChannels\Zenvia\Exceptions;
 
 use GuzzleHttp\Exception\ClientException;
 
@@ -53,5 +53,15 @@ class CouldNotSendNotification extends \Exception
     public static function senhaNotProvided()
     {
         return new static('Zenvia password not provided');
+    }
+
+    /**
+     * Thrown when there is no receiver provided
+     *
+     * @return static
+     */
+    public static function receiverNotProvided()
+    {
+        return new static('SMS receiver not provided');
     }
 }

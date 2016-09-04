@@ -30,9 +30,13 @@ class ZenviaChannel
      */
     public function send($notifiable, Notification $notification)
     {
+        if (! $to = $notifiable->routeNotificationFor('zenvia')) {
+            $to = $message->to;
+        }
+
         $message = $notification->toZenvia($notifiable);
         $params  = $message->toArray();
 
-        $this->zenvia->sendMessage($params);
+        $this->zenvia->sendMessage($to, $params);
     }
 }

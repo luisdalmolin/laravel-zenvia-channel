@@ -4,7 +4,7 @@ namespace NotificationChannels\Zenvia;
 
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\ClientException;
-use NotificationChannels\Telegram\Exceptions\CouldNotSendNotification;
+use NotificationChannels\Zenvia\Exceptions\CouldNotSendNotification;
 
 class Zenvia
 {
@@ -52,8 +52,12 @@ class Zenvia
     /**
      * @return \Psr\Http\Message\ResponseInterface
      */
-    protected function sendMessage($params)
+    protected function sendMessage($to, $params)
     {
+        if (empty($to)) {
+            throw CouldNotSendNotification::receiverNotProvided();
+        }
+
         if (empty($this->conta)) {
             throw CouldNotSendNotification::contaNotProvided();
         }
@@ -66,7 +70,7 @@ class Zenvia
             data = [
                 'sendSmsRequest' => [
                     'from' => $this->from,
-                    'to'   => $this->to,
+                    'to'   => $to,
                     'msg'  => $this->msg,
                     'id'   => $this->id,
                 ],
@@ -76,7 +80,7 @@ class Zenvia
         } catch (ClientException $exception) {
             throw CouldNotSendNotification::serviceRespondedWithAnError($exception);
         } catch (\Exception $exception) {
-            throw CouldNotSendNotification::couldNotCommunicateWithTelegram();
+            throw CouldNotSendNotification::couldNotCommunicateWithZenvia();
         }
     }
 }
