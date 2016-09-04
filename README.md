@@ -80,7 +80,7 @@ class InvoicePaid extends Notification
 
 ### Routing a message
 
-You can either send the notification by providing with the chat id of the recipient to the to($chatId) method like shown in the above example or add a routeNotificationForTelegram() method in your notifiable model:
+You can either send the notification by providing with the chat id of the recipient to the to($phone) method like shown in the above example or add a routeNotificationForZenvia() method in your notifiable model:
 
 ```php
 ...
