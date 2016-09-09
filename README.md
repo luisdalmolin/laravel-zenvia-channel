@@ -23,7 +23,7 @@ This package makes it easy to send Zenvia SMS messages using [Zenvia API](http:/
 You can install the package via composer:
 
 ``` bash
-composer require laravel-notification-channels/zenvia
+composer require luisdalmolin/laravel-zenvia-channel
 ```
 
 You must install the service provider:
