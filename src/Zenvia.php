@@ -67,7 +67,7 @@ class Zenvia
         }
 
         try {
-            data = [
+            $data = [
                 'sendSmsRequest' => [
                     'from' => $this->from,
                     'to'   => $to,

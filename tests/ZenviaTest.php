@@ -2,11 +2,13 @@
 
 namespace NotificationChannels\Zenvia\Test;
 
+use NotificationChannels\Zenvia\Zenvia;
+
 class ExampleTest extends \PHPUnit_Framework_TestCase
 {
     /** @test */
     public function true_is_true()
     {
-        $this->assertTrue(true);
+        $zenvia = new Zenvia;
     }
 }
