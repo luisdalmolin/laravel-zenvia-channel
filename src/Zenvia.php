@@ -20,16 +20,20 @@ class Zenvia
     /** @var null|string from do zenvia. */
     protected $from = null;
 
+    /** @var null|string from do zenvia. */
+    protected $pretend = null;
+
     /**
      * @param null $conta
      * @param null $senha
      * @param null $from
      */
-    public function __construct($conta = null, $senha = null, $from = null)
+    public function __construct($conta = null, $senha = null, $from = null, $pretend = false)
     {
-        $this->conta = $conta;
-        $this->senha = $senha;
-        $this->from  = $from;
+        $this->conta   = $conta;
+        $this->senha   = $senha;
+        $this->from    = $from;
+        $this->pretend = $pretend;
     }
 
     /**
@@ -69,18 +73,23 @@ class Zenvia
         try {
             $data = [
                 'sendSmsRequest' => [
-                    'from' => $this->from,
+                    'from' => $params['from'],
                     'to'   => $to,
-                    'msg'  => $this->msg,
-                    'id'   => $this->id,
+                    'msg'  => $params['msg'],
+                    'id'   => $params['id'],
                 ],
             ];
+
+            if ($this->pretend === true) {
+                Log::debug('Pretending to send a SMS to: ' . $to . ' with content: ' . $params['msg']);
+                return;
+            }
 
             return $this->httpClient()->post('/services/send-sms', ['json' => $data]);
         } catch (ClientException $exception) {
             throw CouldNotSendNotification::serviceRespondedWithAnError($exception);
         } catch (\Exception $exception) {
-            throw CouldNotSendNotification::couldNotCommunicateWithZenvia();
+            throw CouldNotSendNotification::couldNotCommunicateWithZenvia($exception->getMessage());
         }
     }
 }

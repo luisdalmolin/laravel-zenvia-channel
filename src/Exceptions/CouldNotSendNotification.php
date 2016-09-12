@@ -30,9 +30,9 @@ class CouldNotSendNotification extends \Exception
      *
      * @return static
      */
-    public static function couldNotCommunicateWithZenvia()
+    public static function couldNotCommunicateWithZenvia($message)
     {
-        return new static('The communication with Zenvia failed.');
+        return new static($message);
     }
 
     /**

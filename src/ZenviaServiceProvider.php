@@ -19,7 +19,8 @@ class ZenviaServiceProvider extends ServiceProvider
                 return new Zenvia(
                     $config['conta'],
                     $config['senha'],
-                    $config['from']
+                    isset($config['from'])    ? $config['from']    : null,
+                    isset($config['pretend']) ? $config['pretend'] : false
                 );
             });
     }

@@ -3,6 +3,7 @@
 namespace NotificationChannels\Zenvia;
 
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Log;
 use NotificationChannels\Zenvia\Exceptions\CouldNotSendNotification;
 
 class ZenviaChannel
@@ -30,10 +31,6 @@ class ZenviaChannel
      */
     public function send($notifiable, Notification $notification)
     {
-        if (config('services.zenvia.pretend') === true) {
-            return;
-        }
-
         if (! $to = $notifiable->routeNotificationFor('zenvia')) {
             $to = $message->to;
         }
