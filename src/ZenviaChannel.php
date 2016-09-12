@@ -17,7 +17,7 @@ class ZenviaChannel
      *
      * @param Zenvia $Zenvia
      */
-    public function __construct(Zenvia $Zenvia)
+    public function __construct(Zenvia $zenvia)
     {
         $this->zenvia = $zenvia;
     }
