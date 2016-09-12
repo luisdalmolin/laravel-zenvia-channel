@@ -44,9 +44,10 @@ Configure your credentials:
 // config/services.php
 ...
 'zenvia' => [
-    'from'  => env('ZENVIA_FROM', 'Laravel Notification Channels'),
-    'conta' => env('ZENVIA_CONTA', 'YOUR ACCOUNT'),
-    'senha' => env('ZENVIA_SENHA', 'YOUR PASSWORD')
+    'from'    => env('ZENVIA_FROM', 'Laravel Notification Channels'),
+    'pretend' => env('ZENVIA_PRETEND', false),
+    'conta'   => env('ZENVIA_CONTA', 'YOUR ACCOUNT'),
+    'senha'   => env('ZENVIA_SENHA', 'YOUR PASSWORD')
 ],
 ...
 ```

@@ -30,6 +30,10 @@ class ZenviaChannel
      */
     public function send($notifiable, Notification $notification)
     {
+        if (config('services.zenvia.pretend') === true) {
+            return;
+        }
+
         if (! $to = $notifiable->routeNotificationFor('zenvia')) {
             $to = $message->to;
         }
