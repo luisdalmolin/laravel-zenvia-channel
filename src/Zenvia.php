@@ -56,7 +56,7 @@ class Zenvia
     /**
      * @return \Psr\Http\Message\ResponseInterface
      */
-    protected function sendMessage($to, $params)
+    public function sendMessage($to, $params)
     {
         if (empty($to)) {
             throw CouldNotSendNotification::receiverNotProvided();
