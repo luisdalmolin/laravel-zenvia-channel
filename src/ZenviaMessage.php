@@ -50,7 +50,7 @@ class ZenviaMessage
         return [
             'from' => $this->from,
             'to'   => $this->to,
-            'msg'  => $this->to . ': ' . $this->msg,
+            'msg'  => $this->from . ': ' . $this->msg,
             'id'   => $this->id,
         ];
     }
