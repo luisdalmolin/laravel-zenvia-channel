@@ -1,7 +1,7 @@
 {
     "name": "luisdalmolin/laravel-zenvia-channel",
     "description": "Send SMS messages with Zenvia",
-    "homepage": "https://github.com/laravel-notification-channels/zenvia",
+    "homepage": "https://github.com/luisdalmolin/laravel-zenvia-channel",
     "license": "MIT",
     "authors": [
         {
