@@ -81,7 +81,7 @@ class Zenvia
             ];
 
             if ($this->pretend === true) {
-                \Log::debug('Pretending to send a SMS to: ' . $to . ' with content: ' . $params['msg']);
+                \Log::debug('Pretending to send a SMS to: ' . $to . ' with content: ' . $this->msg($params));
                 return;
             }
 
