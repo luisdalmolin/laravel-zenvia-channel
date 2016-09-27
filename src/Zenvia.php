@@ -73,9 +73,9 @@ class Zenvia
         try {
             $data = [
                 'sendSmsRequest' => [
-                    'from' => $params['from'],
+                    'from' => $params['from'] ?: $this->from,
                     'to'   => $to,
-                    'msg'  => $params['msg'],
+                    'msg'  => $this->msg($params),
                     'id'   => $params['id'],
                 ],
             ];
@@ -91,5 +91,14 @@ class Zenvia
         } catch (\Exception $exception) {
             throw CouldNotSendNotification::couldNotCommunicateWithZenvia($exception->getMessage());
         }
+    }
+
+    protected function msg($params)
+    {
+        if ($params['from']) {
+            return $params['from'] . ': ' . $params['msg'];
+        }
+
+        return $this->from . ': ' . $params['msg'];
     }
 }
