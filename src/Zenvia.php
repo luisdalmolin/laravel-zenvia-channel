@@ -4,6 +4,7 @@ namespace NotificationChannels\Zenvia;
 
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\ClientException;
+use Illuminate\Support\Str;
 use NotificationChannels\Zenvia\Exceptions\CouldNotSendNotification;
 
 class Zenvia
@@ -75,7 +76,7 @@ class Zenvia
                 'sendSmsRequest' => [
                     'from' => $params['from'] ?: $this->from,
                     'to'   => $to,
-                    'msg'  => $this->msg($params),
+                    'msg'  => Str::limit($params['msg'], 160),
                     'id'   => $params['id'],
                 ],
             ];
