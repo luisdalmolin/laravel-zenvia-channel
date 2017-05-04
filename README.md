@@ -1,9 +1,10 @@
-# Zenvia Notifications Channel for Laravel 5.3 
+# Zenvia Notifications Channel for Laravel 5
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/luisdalmolin/laravel-zenvia-channel.svg?style=flat-square)](https://packagist.org/packages/luisdalmolin/laravel-zenvia-channel)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Total Downloads](https://poser.pugx.org/luisdalmolin/laravel-zenvia-channel/downloads.png)](https://packagist.org/packages/luisdalmolin/laravel-zenvia-channel)
 
-This package makes it easy to send Zenvia SMS messages using [Zenvia API](http://docs.zenviasms.apiary.io) with Laravel 5.3.
+This package makes it easy to send Zenvia SMS messages using [Zenvia API](http://docs.zenviasms.apiary.io) with Laravel 5.
 
 ## Contents
 
