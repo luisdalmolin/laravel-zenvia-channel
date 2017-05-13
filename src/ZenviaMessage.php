@@ -21,6 +21,12 @@ class ZenviaMessage
         $this->msg($msg);
     }
 
+    public function from($from)
+    {
+        $this->from = $from;
+        return $this;
+    }
+
     public function to($to)
     {
         $this->to = $to;
