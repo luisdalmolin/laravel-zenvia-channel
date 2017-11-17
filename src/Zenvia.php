@@ -22,18 +22,23 @@ class Zenvia
     protected $from = null;
 
     /** @var null|string from do zenvia. */
+    protected $aggregateId = null;
+
+    /** @var null|string from do zenvia. */
     protected $pretend = null;
 
     /**
      * @param null $conta
      * @param null $senha
      * @param null $from
+     * @param null $aggregateId
      */
-    public function __construct($conta = null, $senha = null, $from = null, $pretend = false)
+    public function __construct($conta = null, $senha = null, $from = null, $aggregateId = null, $pretend = false)
     {
         $this->conta   = $conta;
         $this->senha   = $senha;
         $this->from    = $from;
+        $this->aggregateId = $aggregateId;
         $this->pretend = $pretend;
     }
 
@@ -80,6 +85,10 @@ class Zenvia
                     'id'   => $params['id'],
                 ],
             ];
+            
+            if(! is_null($this->aggregateId)) {
+                $data['sendSmsRequest']['aggregateId'] = $this->aggregateId;
+            }
 
             if ($this->pretend === true) {
                 \Log::debug('Pretending to send a SMS to: ' . $to . ' with content: ' . $this->msg($params));

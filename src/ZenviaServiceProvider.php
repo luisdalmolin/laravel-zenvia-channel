@@ -20,6 +20,7 @@ class ZenviaServiceProvider extends ServiceProvider
                     $config['conta'],
                     $config['senha'],
                     isset($config['from'])    ? $config['from']    : null,
+                    $config['aggregateId'],
                     isset($config['pretend']) ? $config['pretend'] : false
                 );
             });
