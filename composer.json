@@ -1,13 +1,19 @@
 {
-    "name": "luisdalmolin/laravel-zenvia-channel",
-    "description": "Send SMS messages with Zenvia",
-    "homepage": "https://github.com/luisdalmolin/laravel-zenvia-channel",
+    "name": "joaoprado/laravel-zenvia-channel",
+    "description": "Send SMS messages with Zenvia (Fork from luisdalmolin's Project)",
+    "homepage": "https://github.com/joaoprado/laravel-zenvia-channel",
     "license": "MIT",
     "authors": [
         {
             "name": "Luís Dalmolin",
             "email": "luis.nh@gmail.com",
             "homepage": "http://luisdalmolin.com.br",
+            "role": "Developer"
+        },
+        {
+            "name": "João Prado",
+            "email": "contato@joaoprado.com.br",
+            "homepage": "http://joaoprado.com.br",
             "role": "Developer"
         }
     ],
