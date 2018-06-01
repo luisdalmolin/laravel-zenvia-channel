@@ -45,7 +45,7 @@ class Zenvia
     protected function httpClient()
     {
         return new HttpClient([
-            'base_uri' => 'https://api-rest.zenvia360.com.br',
+            'base_uri' => 'https://api-rest.zenvia.com',
             'headers' => [
                 'Content-Type'  => 'application/json',
                 'Accept'        => 'application/json',
