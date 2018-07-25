@@ -64,4 +64,14 @@ class CouldNotSendNotification extends \Exception
     {
         return new static('SMS receiver not provided');
     }
+
+    /**
+     * Thrown when there is no 'aggregateId' provided
+     *
+     * @return static
+     */
+    public static function aggregateIdNotProvided()
+    {
+        return new static('Zenvia aggregateId not provided');
+    }
 }

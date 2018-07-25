@@ -10,6 +10,9 @@ class ZenviaMessage
     public $to;
     public $msg;
     public $id;
+    public $schedule;
+    public $callbackOption;
+    public $flashSms;
 
     public static function create($msg = null)
     {
@@ -51,13 +54,34 @@ class ZenviaMessage
         return $this;
     }
 
+    public function schedule($schedule)
+    {
+        $this->schedule = $schedule;
+        return $this;
+    }
+
+    public function callbackOption($callbackOption)
+    {
+        $this->callbackOption = $callbackOption;
+        return $this;
+    }
+
+    public function flashSms($flashSms)
+    {
+        $this->flashSms = $flashSms;
+        return $this;
+    }
+
     public function toArray()
     {
         return [
-            'from' => $this->from,
-            'to'   => $this->to,
-            'msg'  => $this->msg,
-            'id'   => $this->id,
+            'from'           => $this->from,
+            'to'             => $this->to,
+            'msg'            => $this->msg,
+            'id'             => $this->id,
+            'schedule'       => $this->schedule,
+            'callbackOption' => $this->callbackOption,
+            'flashSms'       => $this->flashSms,
         ];
     }
 }
