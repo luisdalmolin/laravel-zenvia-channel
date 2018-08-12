@@ -24,17 +24,23 @@ class Zenvia
     /** @var null|string from do zenvia. */
     protected $pretend = null;
 
+    /** @var null|string from do zenvia. */
+    protected $aggregateId = null;
+
     /**
      * @param null $conta
      * @param null $senha
      * @param null $from
+     * @param false $pretend
+     * @param null $aggregateId
      */
-    public function __construct($conta = null, $senha = null, $from = null, $pretend = false)
+    public function __construct($conta = null, $senha = null, $from = null, $pretend = false, $aggregateId = null)
     {
-        $this->conta   = $conta;
-        $this->senha   = $senha;
-        $this->from    = $from;
-        $this->pretend = $pretend;
+        $this->conta        = $conta;
+        $this->senha        = $senha;
+        $this->from         = $from;
+        $this->pretend      = $pretend;
+        $this->aggregateId  = $aggregateId;
     }
 
     /**
@@ -71,17 +77,27 @@ class Zenvia
             throw CouldNotSendNotification::senhaNotProvided();
         }
 
+        if(empty($this->aggregateId)){
+            throw CouldNotSendNotification::aggregateIdNotProvided();
+        }
+
         try {
             $data = [
                 'sendSmsRequest' => [
-                    'from' => $params['from'] ?: $this->from,
-                    'to'   => $to,
-                    'msg'  => Str::limit($params['msg'], 160),
-                    'id'   => $params['id'],
+                    'from'              => $params['from'] ?: $this->from,
+                    'to'                => $to,
+                    'msg'               => Str::limit($params['msg'], 160),
+                    'id'                => $params['id'],
+                    'schedule'          => $params['schedule'] ?: '',
+                    'callbackOption'    => $params['callbackOption'] ?: 'NONE',
+                    'aggregateId'       => $this->aggregateId,
+                    'flashSms'          => $params['flashSms'] ?: true,
                 ],
             ];
 
-            if ($this->pretend === true) {
+
+
+            if ($this->pretend == true) {
                 \Log::debug('Pretending to send a SMS to: ' . $to . ' with content: ' . $this->msg($params));
                 return;
             }
