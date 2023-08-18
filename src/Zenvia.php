@@ -24,23 +24,18 @@ class Zenvia
     /** @var null|string from do zenvia. */
     protected $pretend = null;
 
-    /** @var null|string from do zenvia. */
-    protected $aggregateId = null;
-
     /**
      * @param null $conta
      * @param null $senha
      * @param null $from
      * @param false $pretend
-     * @param null $aggregateId
      */
-    public function __construct($conta = null, $senha = null, $from = null, $pretend = false, $aggregateId = null)
+    public function __construct($conta = null, $senha = null, $from = null, $pretend = false)
     {
         $this->conta        = $conta;
         $this->senha        = $senha;
         $this->from         = $from;
         $this->pretend      = $pretend;
-        $this->aggregateId  = $aggregateId;
     }
 
     /**
@@ -77,10 +72,6 @@ class Zenvia
             throw CouldNotSendNotification::senhaNotProvided();
         }
 
-        if(empty($this->aggregateId)){
-            throw CouldNotSendNotification::aggregateIdNotProvided();
-        }
-
         try {
             $data = [
                 'sendSmsRequest' => [
@@ -90,7 +81,6 @@ class Zenvia
                     'id'                => $params['id'],
                     'schedule'          => $params['schedule'] ?: '',
                     'callbackOption'    => $params['callbackOption'] ?: 'NONE',
-                    'aggregateId'       => $this->aggregateId,
                     'flashSms'          => $params['flashSms'] ?: true,
                 ],
             ];
